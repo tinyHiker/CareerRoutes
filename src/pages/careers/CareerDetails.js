@@ -1,37 +1,25 @@
-import { Link, useLoaderData } from "react-router-dom"
+import { useLoaderData, useParams } from 'react-router-dom'
 
-
-
-export default function Careers() {
-  const careersData = useLoaderData()
-  const careers = careersData.careers
-
-  console.log(typeof careers)
+export default function CareerDetails() {
+  const { id } = useParams()
+  const career = useLoaderData()
 
   return (
-    <div className="careers">
-      {careers.map(career => (
-        <Link to={career.id.toString()} key={career.id}>
-          <p>{career.title}</p>
-          <p>Based in {career.location}</p>
-        </Link>
-      ))}
+    <div className="career-details">
+      <h2>Career Details for {career.title}</h2>
+      <p>Starting salary: {career.salary}</p>
+      <p>Location: {career.location}</p>
+      <div className="details">
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed sunt ipsam quam assumenda quasi ipsa facilis laborum rerum voluptatem!</p>
+      </div>
     </div>
   )
 }
 
 // data loader
-/*
-export const careersLoader = async () => {
-  const res = await fetch('http://localhost:4000/careers')
+export const careerDetailsLoader = async ({ params }) => {
+  const { id } = params
 
-  return res.json()
-}
-*/
-
-
-export const careersLoader = async () => {
-  // Directly return the imported JSON data
   let careersData = {
     "careers": [
       {
@@ -78,5 +66,18 @@ export const careersLoader = async () => {
       }
     ]
   }
-  return careersData;
+
+  let careers = careersData.careers
+  let right_career = careers.find(career => {
+    return career.id == id
+  })
+
+  if (!right_career){
+    throw Error('Career not found!')
+  }
+  
+  console.log(right_career)
+
+
+  return right_career
 }
