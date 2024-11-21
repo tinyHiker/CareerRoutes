@@ -8,13 +8,27 @@ export async function brainstorm_action({ request }){
   
 
   if(form_data.action === "createIdea"){
-    console.log("createIdea RAN")
     let old_data = JSON.parse(localStorage.getItem('ideas'));
-    let old_content = old_data['content']
-    let new_content = [...old_content, [crypto.randomUUID(),form_data.idea]]
-    let new_data = {'content': new_content}
+    console.log(`OLD DATA: ${old_data}`)
+
+    let old_content;
+    let new_content;
+    let new_data;
+
+    if (old_data){
+      old_content = old_data['content']
+      new_content = [...old_content, [crypto.randomUUID(),form_data.idea]]
+      new_data = {'content': new_content}
+    } else {
+      new_content =  [[crypto.randomUUID(),form_data.idea]]
+      new_data = {'content': new_content}
+    }
+    
     localStorage.setItem('ideas', JSON.stringify(new_data))
     return redirect('/')
+
+
+
   } else if (form_data.action ==="deleteIdea"){
 
     let old_data = JSON.parse(localStorage.getItem('ideas'));
@@ -28,7 +42,7 @@ export async function brainstorm_action({ request }){
 
     })
 
-    console.log(new_content)
+
     let new_data = {'content': new_content}
     localStorage.setItem('ideas', JSON.stringify(new_data))
     return redirect('/')
@@ -40,7 +54,11 @@ export async function brainstorm_action({ request }){
 
 export async function brainstorm_loader(){
   let data = JSON.parse(localStorage.getItem('ideas'));
-  return data['content']
+  console.log(`DATA ${data}`)
+  if (data){
+    return data['content'] ?? []
+  }
+  return []
   
 }
 
