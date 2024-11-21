@@ -1,73 +1,43 @@
 import { useLoaderData, useParams } from 'react-router-dom'
+import careers_data from "../../data/careers_data.js"
 
 export default function CareerDetails() {
   const { id } = useParams()
   const career = useLoaderData()
+  
 
   return (
     <div className="career-details">
-      <h2>Career Details for {career.title}</h2>
-      <p>Starting salary: {career.salary}</p>
-      <p>Location: {career.location}</p>
-      <div className="details">
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed sunt ipsam quam assumenda quasi ipsa facilis laborum rerum voluptatem!</p>
+      <h2>{career.title}</h2>
+      <div className="details details-fonting">
+        <p>{career.description}</p>
       </div>
+      <p>Average Entry-Level Salary: <span className="details-fonting">{convertSalary(career.startingSalary)}</span></p>
+      <p>Average Senior Salary: <span className="details-fonting">{convertSalary(career.seniorSalary)}</span></p>
+      <p>Canadian Magnet Location: <span className="details-fonting">{career.location}</span></p>
+      <p>Mental Stress: <span className="details-fonting">{career.mentalStress}/100</span></p>
+      <p>Physical Stress: <span className="details-fonting">{career.physicalStress}/100</span></p>
+      <p>Required Education Level: <span className="details-fonting">{career.educationLevel}</span></p>
+      <p>Years of Study: <span className="details-fonting">{career.yearsOfStudy}</span></p>
     </div>
   )
+}
+
+
+function convertSalary(salary){
+  let front = String(salary/1000)
+  let back = ",000"
+
+  return front + back
+
 }
 
 // data loader
 export const careerDetailsLoader = async ({ params }) => {
   const { id } = params
 
-  let careersData = {
-    "careers": [
-      {
-        "id": 1,
-        "title": "Senior React Developer",
-        "salary": 50000,
-        "location": "London, UK"
-      },
-      {
-        "id": 2,
-        "title": "Plumber",
-        "salary": 40000,
-        "location": "Bowser's Castle"
-      },
-      {
-        "id": 3,
-        "title": "Gym Leader",
-        "salary": 75000,
-        "location": "Kanto Region"
-      },
-      {
-        "id": 4,
-        "title": "Vue Developer",
-        "salary": 40000,
-        "location": "Liverpool, UK"
-      },
-      {
-        "id": 5,
-        "title": "Tutorial Maker",
-        "salary": 35000,
-        "location": "Manchester, UK"
-      },
-      {
-        "id": 6,
-        "title": "Website Manager",
-        "salary": 50000,
-        "location": "Berlin, Germany"
-      },
-      {
-        "id": 7,
-        "title": "Food Tester",
-        "salary": 30000,
-        "location": "London, UK"
-      }
-    ]
-  }
 
-  let careers = careersData.careers
+  let careers = careers_data.careers
   let right_career = careers.find(career => {
     return career.id == id
   })

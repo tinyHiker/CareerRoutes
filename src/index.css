@@ -1,15 +1,61 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
 
 :root {
-  --primary: #bc4123;
-  --secondary: #2b3452;
+  --primary: #aa2200;
+  --secondary: #13151d;
 }
 body {
   margin: 0;
   padding: 20px;
   font-family: "Poppins";
   background: var(--secondary);
+  font-size: 25px
 }
+
+.list-item {
+  display: flex;      /* Aligns children (text and form) in a row */
+  align-items: center; /* Centers the children vertically */
+  gap: 10px;          /* Adds space between the text and the button */
+}
+
+.inline-form {
+  margin: 0; /* Removes any default margin */
+}
+
+
+#brainstorm-title{
+  text-decoration: underline;
+  text-decoration-color: var(--primary); 
+  margin-bottom: 10px;
+
+}
+#brainstorm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#idea{
+  padding: 20px;
+  font-family: "Poppins";
+  font-size: 25px;
+  margin-bottom: 15px;
+
+}
+#idea-submit{
+  padding: 20px;
+  font-family: "Poppins";
+  font-size: 25px;
+  width:150px;
+  margin-bottom: 20px;
+}
+#idea-label{
+  margin-bottom: 10px;
+}
+
+
+
+
 * {
   color: #fff;
   margin: 0;
@@ -75,7 +121,7 @@ main {
 
 /* faq */
 .faq .question {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.568);
   padding: 5px 20px;
   border-radius: 4px;
   margin: 20px 0;
@@ -103,7 +149,7 @@ form label span {
 /* careers list */
 .careers > a {
   display: block;
-  background: rgba(0,0,0,0.2);
+  background: rgb(0, 0, 0);
   padding: 20px;
   border-radius: 4px;
   margin: 20px 0;
@@ -147,4 +193,10 @@ form label span {
 }
 .breadcrumbs .crumb a {
   color: #ddd;
+}
+
+
+.details-fonting {
+  font-family: 'Roboto Mono', monospace;
+  text-decoration: underline red;
 }
